@@ -1,0 +1,93 @@
+# ############### 系统配置 #############
+# 自己指定操作系统版本，要和下面列表中的操作系统完全相同。
+# 现在支持系统： [ CentOS7 | Ubuntu17.10 | Fedora27]
+# Fedora 27 未经过测试
+systemVersion=CentOS7
+
+# 日志保存目录
+toLogDir=logs
+logName=install
+
+# 是否禁用 IPv6,true-禁用 false-不禁用
+disableIPv6=true
+
+#主机名
+myHost=www
+
+# 需要设置的 ulimt 的值
+ulimitNumber=102400
+
+# 是否更新操作系统
+isUpdate=true
+
+# 需要安装的包
+package="vim lrzsz net-tools wget bash-completion man-pages-zh-CN telnet epel-release"
+
+# ssh 原本的端口号
+sshOldPort=22
+# ssh 将要修改的端口号,默认为空，将不会修改
+sshPort=
+
+# 当前登录系统的用户，配置vim的时候会用到
+loginUser=bro
+
+
+# ############## 编译软件用到的内容 ##############
+# 源码保存目录
+src_dir=/usr/local/src/
+# 安装软件的基目录
+desc_dir=/usr/local/
+
+# 编译的时候的线程数
+makeJ=4
+
+# 所有的 yum 安装的依赖关系
+yum="gcc gcc-c++ cmake bison bison-devel ncurses ncurses-devel autoconf pcre-devel \
+openssl-devel zlib-devel libxml2-devel libcurl-devel libwebp-devel libjpeg* \
+libpng-devel openldap-devel libmcrypt-devel freetype-devel readline-devel re2c"
+
+# 所有的 apt 安装的以来关系
+apt="build-essential cmake libncurses5-dev bison libxml2-dev libssl-dev \
+libcurl4-gnutls-dev libjpeg-dev libpng-dev libfreetype6-dev libmcrypt-dev \
+libpcre3-dev zlib1g-dev re2c libreadline-dev"
+
+
+# ############## MySQL Config ##############
+mysql_version=mysql-boost-5.7.20
+mysql_url=https://cdn.mysql.com/Downloads/MySQL-5.7/${mysql_version}.tar.gz
+mysql_compile="-DCMAKE_INSTALL_PREFIX=${desc_dir}/mysql -DDEFAULT_CHARSET=utf8mb4 \
+-DWITH_BOOST=../boost/boost_1_59_0 -DMYSQL_DATADIR=/data/mysql/data -DWITH_SYSTEMD=1"
+mysql_data_dir=/data/mysql/
+mysql_config_dir=${desc_dir}/mysql/etc/
+mysql_user=mysql
+mysql_sock=/tmp/mysql.sock
+mysql_charset=utf8mb4
+mysql_password=1
+    
+
+
+# ############## PHP Config ##############
+php_version=php-7.1.13
+php_url=http://cn2.php.net/distributions/${php_version}.tar.gz
+php_user=www
+php_compile="--prefix=${desc_dir}/php --with-config-file-path=${desc_dir}/php/etc \
+--with-mysqli=${desc_dir}/mysql/bin/mysql_config --with-pdo-mysql=${desc_dir}/mysql \
+--with-mysql-sock=/tmp/mysql.sock --enable-sockets --enable-zip --enable-fpm \
+--with-fpm-user=${php_user} --with-fpm-group=${php_user} \
+--with-jpeg-dir --with-freetype-dir --with-gd --with-curl --with-openssl --with-mhash \
+--with-xmlrpc --enable-ftp --enable-bcmath --enable-shmop --enable-sysvsem --enable-soap \
+--enable-inline-optimization --enable-mbregex --enable-mbstring --enable-pcntl --with-zlib --with-readline"
+
+# ############## Nginx Config ##############
+# tengine
+nginx_version=tengine-2.2.1
+nginx_url=http://tengine.taobao.org/download/${nginx_version}.tar.gz
+
+
+# 将 Nginx 替换成了 tengine
+# nginx_version=nginx-1.12.2
+# nginx_url=https://nginx.org/download/${nginx_version}.tar.gz
+nginx_user=www
+nginx_compile="--prefix=${desc_dir}/nginx --user=${nginx_user} --group=${nginx_user} \
+--with-select_module --with-poll_module --with-http_ssl_module --with-pcre --with-cc-opt=-Wno-error \
+--with-pcre-jit --with-zlib= --pid-path=${desc_dir}/nginx/run/nginx.pid"

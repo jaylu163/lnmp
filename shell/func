@@ -1,0 +1,90 @@
+function fnColor()
+{
+    # 定义一个用来表示所有颜色的数组
+    declare -A colors
+    colors=(
+        [default]=0     # 重置的颜色
+        [black]=30      # 黑色
+        [red]=31        # 红色
+        [green]=32      # 绿色
+        [yellow]=33     # 黄色
+        [blue]=34       # 蓝色
+        [purple]=35     # 紫色
+        [cyan]=36       # 青色
+        [white]=37      # 白色
+        [bblack]=40     # 黑色背景
+        [bred]=41       # 红色背景
+        [bgreen]=42     # 绿色背景
+        [byellow]=43    # 黄色背景
+        [bblue]=44      # 蓝色背景
+        [bpurple]=45    # 紫色背景
+        [bcyan]=46      # 青色背景
+        [bwhite]=47     # 白色背景
+    )
+
+    # 通过颜色，获取数据下标
+    index=${1:-default}
+    # 如果没有对应的颜色值，给一个默认值 0（重置颜色）
+    echo ${colors[${index}]:-0}
+
+}
+
+# 将指定颜色输出的函数
+function fnEchoColor()
+{
+    # 定义颜色值，有前景和背景
+    if [[ -n "$2" && -n "$3" ]]; then
+        color="$(fnColor "${2}");$(fnColor "${3}")"
+    fi
+
+    # 定义颜色值，只有字体颜色
+    if [[ -n $2 && -z $3 ]]; then
+        color="$(fnColor "${2}")"
+    fi
+
+    # 将内容输出
+    if [[ -n $1 ]]; then
+        if [[ -n $color ]]; then
+            echo -e "\033[${color};1m${1}\033[0m"
+        else
+            echo -e "${1}"
+        fi
+    fi
+}
+
+function fnError()
+{
+    fnEchoColor "$1" red
+}
+
+function fnWarning()
+{
+    fnEchoColor "$1" yellow
+}
+
+function fnSuccess()
+{
+    fnEchoColor "$1" green
+}
+
+
+# 定义日志格式
+function fnLogFormat()
+{
+    echo -e "$(date +%Y-%m-%d' '%H:%M:%S) - ${1}"
+}
+
+# 输出日志
+function fnLog()
+{
+    logDir="${baseDir}/logs"
+    if [[ -n "${toLogDir}" ]]; then
+        logDir="${baseDir}/${toLogDir}"
+    fi
+
+    export logFile="${logDir}/${logName}.log"
+
+    [ -d ${logDir} ] || mkdir -p ${logDir}
+    echo "$(fnLogFormat)${1}" >> ${logFile}
+}
+
