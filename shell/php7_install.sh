@@ -81,5 +81,7 @@ echo "php7安装后测试-----------------"
 
 echo "开启pid ,去掉分号注释# pid = run/php-fpm.pid......................................................";
 
+sudo groupadd www
+sudo useradd www -g www -s /sbin/nologin -M
 
 exit;
