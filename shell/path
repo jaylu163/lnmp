@@ -1,5 +1,0 @@
-# 这个文件是用来检测文件是否存在
-config
-func
-lib/system_init.sh
-lib/lnmp.sh
