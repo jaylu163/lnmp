@@ -1,6 +1,8 @@
 
 
 #nginx 编译安装
+# find / name nginx
+# 如果有安装nginx,要yum或是apt-get remove
 
 #1 安装最新gcc及nginx所需要依赖
 
@@ -73,6 +75,15 @@ sudo id nginx
 
 
 sudo /usr/local/nginx/sbin/nginx -t 
+
+
+echo "打开nginx.conf,把 user nobady 改为user nginx nginx "
+
+echo "打开nginx.conf,把 log-format 注释开启 "
+
+echo "打开nginx.conf,把 pid 注释开启"
+
+echo "打开nginx.conf, 添加 include conf.d/*.conf; "
 
 
 
