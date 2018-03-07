@@ -66,7 +66,7 @@ echo "添加logs日志";
 sudo mkdir /usr/local/nginx/logs
 sudo mkdir /usr/local/nginx/conf/conf.d
 
-sudo vim /usr/local/nginx/conf.d/test.conf
+sudo vim /usr/local/nginx/conf/conf.d/test.conf
 
 sudo useradd -s /sbin/nologin -M nginx 
 sudo id nginx 
