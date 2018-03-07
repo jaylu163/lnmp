@@ -19,10 +19,10 @@
 # Check that networking is up.
 [ "$NETWORKING" = "no" ] && exit 0
 
-nginx="/usr/sbin/nginx"
+nginx="/usr/local/nginx/sbin/nginx"
 prog=$(basename $nginx)
 
-NGINX_CONF_FILE="/etc/nginx/nginx.conf"
+NGINX_CONF_FILE="/usr/local/nginx/conf/nginx.conf"
 
 [ -f /etc/sysconfig/nginx ] && . /etc/sysconfig/nginx
 
