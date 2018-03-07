@@ -52,7 +52,9 @@ echo "php 准备安装参数结束............................................";
 echo "php编译并安装"
 
 
-sudo make && make install
+sudo make 
+
+sudo make install
 
 
 
