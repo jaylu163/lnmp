@@ -64,7 +64,7 @@ echo "编译安装结束..... make test.............."
 echo "添加logs日志";
 
 sudo mkdir /usr/local/nginx/logs
-sudo mkdir /usr/local/nginx/conf.d
+sudo mkdir /usr/local/nginx/conf/conf.d
 
 sudo vim /usr/local/nginx/conf.d/test.conf
 
@@ -72,10 +72,7 @@ sudo useradd -s /sbin/nologin -M nginx
 sudo id nginx 
 
 
-
 sudo /usr/local/nginx/sbin/nginx -t 
-
-
 
 
 
