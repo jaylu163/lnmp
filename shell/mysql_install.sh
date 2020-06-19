@@ -25,3 +25,31 @@ echo '解压mysql完成。。。。'
 
 
 echo '生成mysql 编译的脚本 cmake';
+
+
+
+
+
+##########################文本配置##################
+
+groupadd mysql
+useradd -r -g mysql -s /bin/false -M mysql
+
+#############将mysql服务文件拷贝到/etc/init.d/目录，并给出执行权限
+cp /usr/local/mysql-5.7.22/support-files/mysql.server /etc/init.d/mysqld
+chmod a+x /etc/init.d/mysqld
+#########开机自启动
+
+chkconfig --add mysqld
+chkconfig mysqld on
+chkconfig --list | grep mysqld
+
+###########初始化数据库
+mysqld_safe --basedir=/usr/local/mysql --datadir=/usr/local/mysql57/data --user=mysql
+
+############赋予目录mysql权限
+chown -R mysql:mysql  /var/mysql
+
+##### mysql start 失败执行
+chown -R mysql.mysql /var/mysql/data
+
